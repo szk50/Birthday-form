@@ -1,202 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="szkweb.css">
-    <title>Love Form</title>
+    <link rel="icon" type="image/x-icon" href="icon.jfif">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fce4ec;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Fixed Background Image Styling */
+        #bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            object-fit: fill; /* Ensures it fills the screen */
+            /* ADJUST THIS: 'center' is left-right, '80%' pushes the top of the image DOWN */
+            object-position: top center; 
+        }
+
+        .card-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px 10px;
+            background: rgba(241, 228, 242, 0.85);
+            backdrop-filter: blur(1px); /* Increased blur for better readability */
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #ff6090;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px #fff;
+        }
+
+        .main-video {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 5px solid #ffdecf;
+        }
+
+        .memory-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .memory-table th {
+            background-color: #ff80ab;
+            color: white;
+            padding: 12px;
+            font-size: 1.1rem;
+        }
+
+        .memory-table td {
+            padding: 15px;
+            border-bottom: 1px solid #fce4ec;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .surprise-note-box {
+            margin-top: 30px;
+            background: #fff;
+            border: 2px dashed #ff80ab;
+            border-radius: 20px;
+            padding: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .note-content {
+            display: none;
+            padding-top: 15px;
+            color: #d81b60;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .show { display: block !important; }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.4rem; }
+            .card-container { padding: 15px; width: 95%; margin: 20px 0; }
+            .memory-table td { padding: 10px; font-size: 0.85rem; }
+        }
+
+        footer {
+            margin: 10px;
+            font-style: italic;
+            color: #d81b60;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 5px 15px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-
 <body>
-    </header>
-    <nav class="mainbar">
-        <ul class="navlist">
-            <li><a href="">Introduction</a></li>
-            <li><a href="">Love Tab</a></li>
-            <li><a href="">Form</a></li>
-            <li><a href="">Contact</a></li>
-            <div class="srch">
-                <input class="txtbar" type="text" placeholder="Search...">
-                <button class="btn" type="submit">Search</button>
-            </div>
-    </nav>
-    <img id="firstpic" class="pictures" src="hello kitty and daniel kiss.jpeg" alt="Us">
-    <header>
-        <h2 class="headings">HELLO SZK'S LIL AUGGIE JAAN!</h2>
-        <span class="intro">Welcome to szk's official boyfriend website.</span>
-        <p class="headp">Please fill into the form and submit your reviews for szk as a cute lil girlfriend and how your
-            cute little
-            relationship is goingg with her. You may also give her suggestions if you want anything about her to
-            change.😋😉
-        </p>
 
-        <span id="tabintro" class="headings">WHAT SZK LOVES ABOUT YOU?</span>
-        <table>
+    <img src="download.jfif" alt="bg" id="bg-image">
+
+    <div class="card-container">
+        <h1>HAPPY 37TH BIRTHDAY TO MY AUGGIE JAAN <3</h1>
+        
+        <video autoplay muted loop playsinline class="main-video">
+            <source src="yellowwish.mp4" type="video/mp4">
+        </video>
+
+        <p>You are a blessing for me and the best of all besties! I love you forever my Asmat Jaan! I love you and your yummy baby lips and face. You are the cutest headache I've ever had. Happy 4th year of our lovely relationship that i hope stays as pretty as it is forever. Lots of virtual kisses and hugs to you babe.💋🥰</p>
+
+        <table class="memory-table">
             <thead>
-                <tr class="theads">
-                    <th>Quality</th>
-                    <th>None</th>
-                    <th>Just OK</th>
-                    <th>Normal</th>
-                    <th>A Lot</th>
-                    <th>Very Much</th>
-                </tr>
+                <tr><th colspan="2">👑 Reasons Why You're The Best 👑</th></tr>
             </thead>
-            <tbody class="tablebody">
-                <tr>
-                    <td>Cuteness</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                </tr>
-                <tr>
-                    <td>Pretty</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Caring</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                </tr>
-                <tr>
-                    <td>Emotional Intelligence</td>
-                    <td>👍🏻</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Snakeyy🐍</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                </tr>
-                <tr>
-                    <td>Red Lips😘</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                </tr>
-                <tr>
-                    <td>Funny</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                </tr>
-                <tr>
-                    <td>Samajhdaar Boii</td>
-                    <td>👍🏻</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Stupid</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Musalli</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                </tr>
-                <tr>
-                    <td>🥑🍑🍒Happiness</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>👍🏻</td>
-                </tr>
+            <tbody>
+                <tr><td>🌟</td><td>Your incredible patience and how you always listen to my dumb stories.😉</td></tr>
+                <tr><td>🎂</td><td>The way you make every year feel special, even when we are far apart.😻</td></tr>
+                <tr><td>✨</td><td>Your sense of humor that can fix even my worst days.😊</td></tr>
+                <tr><td>😍</td><td>Your cutie pie snakey🐍 and red red yummy lipss.💕</td></tr>
+                <tr><td>👀</td><td>The way you care for my small babies🍒🍑🥑</td></tr>
+                <tr><td>🌹</td><td>Your always being able to convince me and love me when I'm angry and naraz.😤</td></tr>
+                <tr><td>💎</td><td>Everything about you baby. You're my little gem and i never want to lose you.😚</td></tr>
+                <tr><td>💖</td><td>Being my "Besties Forever Contract" partner since day one.😏</td></tr>
             </tbody>
         </table>
-        <span class="other">And much more!!😊😉</span>
-        <h3 class="headings">WELCOME TO THE LOVE FORM!</h3>
-        <form action="szkweb.txt">
-            <div class="headp forms">
-                <label for="dated">Date:</label>
-                <input type="date" name="date" id="dated">
+
+        <table class="memory-table" style="margin-top: 30px;">
+            <thead>
+                <tr><th colspan="2">⭐ Bestie BF Rating Report Card ⭐</th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align: left; padding-left: 20px;">Cuteness</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
+                <tr><td style="text-align: left; padding-left: 20px;">Pretty</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
+                <tr><td style="text-align: left; padding-left: 20px;">Red lip kisses</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
+                <tr><td style="text-align: left; padding-left: 20px;">Lollipop taste and size</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
+                <tr><td style="text-align: left; padding-left: 20px;">Chura ratio</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍</td></tr>
+                <tr><td style="text-align: left; padding-left: 20px;">Funny</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍</td></tr>
+                <tr><td style="text-align: left; padding-left: 20px;">Samajhdaar boii</td><td style="text-align: right; padding-right: 20px;">👍</td></tr>
+                <tr><td style="text-align: left; padding-left: 20px;">Emotional intelligence</td><td style="text-align: right; padding-right: 20px;">👍</td></tr>
+            </tbody>
+        </table>
+
+        <div class="surprise-note-box" onclick="toggleNote()">
+            <strong id="note-label">✨ Click for a secret note from me! ✨</strong>
+            <div id="secretNote" class="note-content">
+                "To my dearest Auggie baby, it's been the best time of my life since you've been in it!😘 We love, laugh, fight and love again.🎀 All the credit goes to you for making things work out between us no matter how hard life and circumstances get, i just know that they won't ever be as hard as your snakey's🐍 love for me.🙃 Thank you for being the person I can always turn to. You aren't just a best friend, you are my family.💕 I hope this year is as bright and wonderful as you are! Love you forever meri jaan! 🌸"
             </div>
-            <div class="headp forms">
-                <label for="userid">Name:</label>
-                <input type="text" name="username" id="userid">
-            </div>
-            <div class="headp forms">
-                <label for="usermail">E-mail:</label>
-                <input type="email" name="usermailbox" id="usermail">
-            </div>
-            <div class="headp forms">
-                <label for="liked"> Do you like szk?</label>
-                Yes <input type="radio" name="liking" id="liked">
-                No<input type="radio" name="liking" id="liked">
-            </div>
-            <div class="headp forms">
-                <label for="msg">Would you like to get a speacial message from szk?</label>
-                <input type="checkbox" name="usermsg" id="msg">
-            </div>
-            <div class="headp forms">
-                <label for="scale"> How many percent do you like Szk?</label>
-                <input type="number" name="scaling" id="scale" min="0" max="100" step="1"> %
-            </div>
-            <div class="headp forms">
-                <label for="feelings">What do you think about her?</label>
-                <textarea name="idea" id="feelings"></textarea>
-            </div>
-            <div class="headp forms">
-                <label for="exp">How do you describe her? And your relationship?😊</label>
-                <textarea name="rels" id="exp"></textarea>
-            </div>
-            <div class="headp forms">
-                <label for="note"> Anything you'd like to say or tell her?</label>
-                <textarea name="notes" id="note"></textarea>
-            </div>
-            <div class="headp forms">
-                <label for="rom">Do you like 🥑🍑🍒?</label>
-                No<input type="radio" name="love" id="rom">
-                A little<input type="radio" name="love" id="rom">
-                Maybe<input type="radio" name="love" id="rom">
-                Yes<input type="radio" name="love" id="rom">
-                A lot<input type="radio" name="love" id="rom">
-            </div>
-            <div class="headp forms">
-                <button class="btn" type="reset">Reset</button>
-                <button class="btn" type="submit">Submit Now!</button>
-            </div>
-        </form>
-        <h4 class="heading">Thank you for filling the form!</h4>
-        <details>
-            <summary>Note for you:</summary>
-            <p class="outro">You have been the best bestie BF for tiny miney szk and she just wants to let you know that
-                you are super cutie and she loves you even though she might be a bitch 24/7.</p>
-        </details>
-        <p class="info">E-mail: <a class="cct" href="mailto:khanshahzinee145@gmail.com" target="_blank">
-                khanshahzinee145@gmail.com</a></p>
-        <p class="date">Made: 11th April, 2025</p>
+        </div>
+
+        <video autoplay muted loop playsinline class="main-video">
+            <source src="pinkwish.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <footer>Made with ❤️ for Auggie</footer>
+    <footer>from szk baby🎁</footer>
+
+    <script>
+        function toggleNote() {
+            const note = document.getElementById('secretNote');
+            const label = document.getElementById('note-label');
+            note.classList.toggle('show');
+            label.innerText = note.classList.contains('show') ? "Close Note 🌸" : "Click for a secret note from me! ✨";
+        }
+    </script>
 </body>
-
 </html>
-
