@@ -375,6 +375,41 @@
                 transform: rotate(1deg);
             }
         }
+
+        /* MOBILE-ONLY FIXES: Does not affect laptop */
+@media (max-width: 480px) {
+    #intro-wish {
+        padding: 20px !important;
+        width: 80% !important;
+    }
+
+    #intro-wish h2 {
+        font-size: 1.5rem !important; /* Smaller intro text */
+    }
+
+    .card-container {
+        width: 82% !important; /* Shows background image on the sides */
+        padding: 15px !important;
+        margin: 20px auto !important;
+    }
+
+    h1 {
+        font-size: 1.2rem !important;
+    }
+
+    .memory-table td, .memory-table th {
+        padding: 8px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .main-video {
+        max-width: 100% !important;
+    }
+
+    #bg-image {
+        object-fit: cover !important;
+    }
+}
     </style>
 </head>
 
@@ -666,15 +701,29 @@
             showToast(msgs[Math.floor(Math.random() * msgs.length)]);
         }
 
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.8) {
-                const heart = document.createElement('div');
-                heart.className = 'trail-heart'; heart.innerHTML = '💖';
-                heart.style.left = e.clientX + 'px'; heart.style.top = e.clientY + 'px';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 800);
-            }
-        });
+        // This works for BOTH Laptop (Mouse) and Phone (Touch)
+function createHeart(x, y) {
+    if (Math.random() > 0.8) {
+        const heart = document.createElement('div');
+        heart.className = 'trail-heart'; 
+        heart.innerHTML = '💖';
+        heart.style.left = x + 'px'; 
+        heart.style.top = y + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 800);
+    }
+}
+
+// Listener for Laptop
+document.addEventListener('mousemove', (e) => {
+    createHeart(e.clientX, e.clientY);
+});
+
+// Listener for Phone/Tablet
+document.addEventListener('touchmove', (e) => {
+    // Prevents the screen from wobbling while he draws hearts
+    createHeart(e.touches[0].clientX, e.touches[0].clientY);
+}, { passive: true });
 
         function showAlert(msg) {
             document.getElementById('alert-msg').innerText = msg;
@@ -691,4 +740,3 @@
 </body>
 
 </html>
-
