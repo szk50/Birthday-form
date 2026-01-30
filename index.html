@@ -8,6 +8,135 @@
     <title>Happy Birthday Auggie!</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        #curtain {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #fff0f6;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    z-index: 999999; overflow: hidden;
+}
+
+/* The Floating Background Emojis */
+.floating-bg {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0.2; /* Makes them very subtle/ghost-like */
+    z-index: -1;
+    animation: floatAround 10s linear infinite;
+}
+
+/* The Gift Tag Button Styling */
+.gift-tag {
+    padding: 18px 36px;
+    font-size: 1.3rem;
+    background: white;
+    color: #ff4d94;
+    /* Dashed border makes it look like a physical gift tag */
+    border: 3px dashed #ff4d94; 
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive; /* Matches your theme */
+    font-weight: bold;
+    box-shadow: 0 10px 25px rgba(255, 77, 148, 0.2);
+    z-index: 1000001; /* Stays above the curtain */
+    animation: gentleFloat 2.5s ease-in-out infinite;
+    outline: none;
+}
+
+/* Make it "pop" when he taps it */
+.gift-tag:active {
+    transform: scale(0.95);
+}
+
+/* The floating animation that makes it look "magical" */
+@keyframes gentleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes floatAround {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, 50px) rotate(10deg); }
+    66% { transform: translate(-30px, 20px) rotate(-10deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+#curtain h2 {
+    font-family: 'Fredoka One', cursive !important;
+    color: #ff4d94;
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px #ffffff, 4px 4px 15px rgba(255, 77, 148, 0.3);
+    margin-bottom: 30px;
+    padding: 0 20px;
+    line-height: 1.3;
+}
+
+/* Optional: Add a little "Hint" text style below the button */
+#curtain p.hint {
+    font-family: 'Segoe UI', sans-serif;
+    color: #ffa3cf;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+/* Vertical Ribbon */
+#curtain::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 100%;
+    background: #ffc1d6; /* Slightly darker pink than background */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    box-shadow: inset 0 0 20px rgba(255, 77, 148, 0.1);
+}
+
+/* Horizontal Ribbon */
+#curtain::after {
+    content: '';
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    background: #ffc1d6;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: -1;
+    box-shadow: inset 0 0 20px rgba(255, 77, 148, 0.1);
+}
+
+#curtain * {
+    z-index: 1;
+}
+.from-label {
+    position: absolute;
+    top: 20%;
+    right: 15%;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border-left: 10px solid #ff4d94; /* Red "tag" hole look */
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.8rem;
+    color: #ff4d94;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+    transform: rotate(15deg); /* Tilts it to look hand-placed */
+    z-index: 2;
+}
+
+/* Adds a tiny "string" effect */
+.from-label::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    width: 15px;
+    height: 2px;
+    background: #ff4d94;
+}
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
         body {
@@ -86,6 +215,7 @@
         }
 
         #intro-wish {
+            display:none;
             position: fixed;
             top: 50%;
             left: 50%;
@@ -208,10 +338,11 @@
         .trail-heart {
             position: fixed;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 1000000 !important;
             font-size: 24px;
             filter: drop-shadow(0 0 5px #ff4081);
             animation: heartFade 0.8s ease-out forwards;
+            
         }
 
         @keyframes heartFade {
@@ -433,6 +564,30 @@
 
 <body onload="startupCelebration()">
 
+<div id="curtain">
+    <div class="from-label">From: Your szk baby! 🌸</div>
+
+    
+    <div class="floating-bg" style="top: 10%; left: 15%; animation-duration: 8s;">🎈</div>
+    <div class="floating-bg" style="top: 70%; left: 80%; animation-duration: 12s;">✨</div>
+    <div class="floating-bg" style="top: 20%; left: 60%; animation-duration: 12s;">🍒</div>
+    <div class="floating-bg" style="top: 80%; left: 60%; animation-duration: 12s;">🎂</div>
+    <div class="floating-bg" style="bottom: 20%; left: 10%; animation-duration: 15s;">☁️</div>
+    <div class="floating-bg" style="bottom: 70%; left: 30%; animation-duration: 15s;">💋</div>
+    <div class="floating-bg" style="bottom: 10%; left: 30%; animation-duration: 15s;">🎀</div>
+    <div class="floating-bg" style="top: 20%; right: 10%; animation-duration: 9s;">💖</div>
+
+    <div style="font-size: 80px; margin-bottom: 10px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));">🎁</div>
+    
+    <h2>For My Dearest<br>Auggie Jaan...</h2>
+
+    <button class="gift-tag" onclick="openGift()">
+        Tap to Unwrap ✨
+    </button>
+    
+    <p class="hint">A special surprise inside</p>
+</div>
+
     <div id="intro-wish">
         <h2 style="margin:0; font-size: 2.5rem;">HAPPY BIRTHDAY<br>AUGGIE BABY! 🎂💖✨</h2>
     </div>
@@ -594,10 +749,33 @@
     </div>
 
     <div class="footer-combined" onclick="pokeMe()">
-        Made with ❤️ for Auggie from szk baby🎁 Don't click mee!🙃😉
+        With ❤️ for Auggie from szk baby🎁 Don't click mee!🙃😉
     </div>
 
     <script>
+        function openGift() {
+    const curtain = document.getElementById('curtain');
+    
+    // Add a little "zoom" effect when clicking
+    curtain.style.transition = 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+    curtain.style.opacity = '0';
+    curtain.style.transform = 'scale(1.1)'; // Makes it feel like it's opening toward him
+    
+    setTimeout(() => {
+        curtain.style.display = 'none';
+        
+        const wish = document.getElementById('intro-wish');
+        if (wish) {
+            wish.style.display = 'block';
+            introCelebration(); 
+            
+            setTimeout(() => {
+                wish.style.opacity = '0';
+                setTimeout(() => wish.remove(), 1000);
+            }, 5000);
+        }
+    }, 1200);
+}
         const startDate = new Date("September 1, 2021 00:00:00").getTime();
 
         function runConfetti(duration) {
@@ -610,7 +788,7 @@
             }());
         }
 
-        function celebrate() { runConfetti(1); }
+        function celebrate() { runConfetti(0.5); }
         function introCelebration() { runConfetti(3); }
 
         function createBgHearts() {
@@ -627,13 +805,10 @@
         function startupCelebration() {
             updateTimer();
             createBgHearts();
-            introCelebration();
-            setTimeout(() => {
-                const wish = document.getElementById('intro-wish');
-                wish.style.opacity = '0';
-                setTimeout(() => wish.remove(), 1000);
-            }, 3000);
             setInterval(randomAlerts, 15000);
+            
+            const wish = document.getElementById('intro-wish');
+            if (wish) wish.style.display = 'none';
         }
 
         function updateTimer() {
@@ -756,3 +931,4 @@
 </body>
 
 </html>
+
