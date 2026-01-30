@@ -409,6 +409,24 @@
     #bg-image {
         object-fit: cover !important;
     }
+    /* Shrinks the main paragraph text */
+    p {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        margin: 15px 5px !important;
+    }
+
+    /* Centers the footer and ensures it doesn't hide behind the kiss button */
+    .footer-combined {
+        width: 85% !important;
+        font-size: 0.75rem !important;
+        margin: 20px auto 100px auto !important;
+        display: block !important;
+    }
+    .memory-table td {
+        font-size: 0.85rem !important;
+        padding: 10px 5px !important;
+    }
 }
     </style>
 </head>
@@ -592,8 +610,8 @@
             }());
         }
 
-        function celebrate() { runConfetti(0.5); }
-        function introCelebration() { runConfetti(2); }
+        function celebrate() { runConfetti(1); }
+        function introCelebration() { runConfetti(3); }
 
         function createBgHearts() {
             for (let i = 0; i < 15; i++) {
@@ -702,28 +720,26 @@
         }
 
         // This works for BOTH Laptop (Mouse) and Phone (Touch)
-function createHeart(x, y) {
-    if (Math.random() > 0.8) {
-        const heart = document.createElement('div');
-        heart.className = 'trail-heart'; 
-        heart.innerHTML = '💖';
-        heart.style.left = x + 'px'; 
-        heart.style.top = y + 'px';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 800);
-    }
-}
 
-// Listener for Laptop
-document.addEventListener('mousemove', (e) => {
-    createHeart(e.clientX, e.clientY);
-});
+        function createHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.className = 'trail-heart'; 
+            heart.innerHTML = '💖';
+            heart.style.left = x + 'px'; 
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 800);
+        }
 
-// Listener for Phone/Tablet
-document.addEventListener('touchmove', (e) => {
-    // Prevents the screen from wobbling while he draws hearts
-    createHeart(e.touches[0].clientX, e.touches[0].clientY);
-}, { passive: true });
+        // Laptop: Keeps the light 80% random sprinkle
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.8) createHeart(e.clientX, e.clientY);
+        });
+
+        // Phone: Creates a continuous stream for a better touch feeling
+        document.addEventListener('touchmove', (e) => {
+            createHeart(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
 
         function showAlert(msg) {
             document.getElementById('alert-msg').innerText = msg;
