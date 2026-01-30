@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="icon.jfif">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday Auggie!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
         body {
             margin: 0;
             padding: 0;
@@ -16,33 +20,210 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="font-size:20px"><text y="16">💖</text></svg>'), auto;
         }
 
-        /* Fixed Background Image Styling */
+        /* Add this inside your <style> tag */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+
+            .card-container {
+                padding: 15px;
+                width: 95%;
+            }
+
+            .memory-table td,
+            .memory-table th {
+                padding: 8px;
+                font-size: 0.85rem;
+            }
+
+            .timer-digits {
+                font-size: 0.8rem;
+            }
+
+            .timer-label {
+                font-size: 0.5rem;
+            }
+        }
+
         #bg-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; 
-            object-fit: fill; /* Ensures it fills the screen */
-            /* ADJUST THIS: 'center' is left-right, '80%' pushes the top of the image DOWN */
-            object-position: top center; 
+            z-index: -1;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .bg-heart {
+            position: fixed;
+            color: rgba(255, 105, 180, 0.6);
+            font-size: 24px;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatUp 7s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        #intro-wish {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 6px double #ff80ab;
+            padding: 35px;
+            border-radius: 50px;
+            z-index: 200000;
+            text-align: center;
+            box-shadow: 0 0 100px rgba(255, 64, 129, 0.4);
+            font-family: 'Fredoka One', cursive;
+            color: #ff4081;
+            width: 85%;
+            max-width: 400px;
+            transition: opacity 1s ease-out;
+            pointer-events: none;
+            animation: introWiggle 3s infinite ease-in-out;
+        }
+
+        @keyframes introWiggle {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(-50%, -52%) rotate(-2deg);
+            }
+
+            75% {
+                transform: translate(-50%, -48%) rotate(2deg);
+            }
         }
 
         .card-container {
             width: 90%;
             max-width: 700px;
             margin: 40px 10px;
-            background: rgba(241, 228, 242, 0.85);
-            backdrop-filter: blur(1px); /* Increased blur for better readability */
+            background: rgba(241, 228, 242, 0.9);
+            backdrop-filter: blur(2px);
             border-radius: 30px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 4px solid #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
             z-index: 1;
+        }
+
+        .timer-box {
+            background: white;
+            border: 2px solid #ff80ab;
+            border-radius: 20px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .timer-digits {
+            display: flex;
+            justify-content: space-around;
+            font-weight: bold;
+            color: #ff4081;
+            font-size: 1rem;
+        }
+
+        .timer-label {
+            font-size: 0.65rem;
+            color: #d81b60;
+            text-transform: uppercase;
+        }
+
+        #kiss-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #ff4081;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 9999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: kissWiggle 2s infinite ease-in-out;
+        }
+
+        @keyframes kissWiggle {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.15) rotate(15deg);
+            }
+        }
+
+        #love-toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 2px solid #ff80ab;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #d81b60;
+            transition: 0.5s;
+            z-index: 9999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .trail-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 24px;
+            filter: drop-shadow(0 0 5px #ff4081);
+            animation: heartFade 0.8s ease-out forwards;
+        }
+
+        @keyframes heartFade {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-40px) scale(1.2);
+                opacity: 0;
+            }
         }
 
         h1 {
@@ -62,7 +243,7 @@
         .memory-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 25px;
+            margin: 25px 0;
             background: white;
             border-radius: 15px;
             overflow: hidden;
@@ -72,24 +253,67 @@
             background-color: #ff80ab;
             color: white;
             padding: 12px;
-            font-size: 1.1rem;
         }
 
         .memory-table td {
             padding: 15px;
             border-bottom: 1px solid #fce4ec;
-            font-size: 0.95rem;
-            line-height: 1.4;
+        }
+
+        .quiz-box {
+            background: #fff0f5;
+            border: 3px dashed #ff80ab;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .quiz-options button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid #ff80ab;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .scratch-box {
+            background: #ff80ab;
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 3px dashed white;
+        }
+
+        .scratch-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ffd1dc, #ff80ab);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: 0.5s;
+            z-index: 2;
         }
 
         .surprise-note-box {
-            margin-top: 30px;
+            margin: 20px 0;
             background: #fff;
             border: 2px dashed #ff80ab;
             border-radius: 20px;
             padding: 15px;
             cursor: pointer;
-            transition: 0.3s;
         }
 
         .note-content {
@@ -100,93 +324,371 @@
             font-weight: 500;
         }
 
-        .show { display: block !important; }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 1.4rem; }
-            .card-container { padding: 15px; width: 95%; margin: 20px 0; }
-            .memory-table td { padding: 10px; font-size: 0.85rem; }
+        .show {
+            display: block !important;
         }
 
-        footer {
-            margin: 10px;
+        #custom-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 4px solid #ff80ab;
+            padding: 20px;
+            border-radius: 20px;
+            z-index: 10000;
+            text-align: center;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
+            width: 85%;
+            max-width: 300px;
+        }
+
+        .footer-combined {
+            cursor: pointer;
+            margin: 30px 0 60px 0;
             font-style: italic;
             color: #d81b60;
             font-weight: bold;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 5px 15px;
-            border-radius: 10px;
+            background: white;
+            padding: 12px 25px;
+            border-radius: 15px;
+            display: inline-block;
+            border: 2px solid #ff80ab;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: wiggle 3s infinite ease-in-out;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(-1deg);
+            }
+
+            75% {
+                transform: rotate(1deg);
+            }
         }
     </style>
 </head>
-<body>
+
+<body onload="startupCelebration()">
+
+    <div id="intro-wish">
+        <h2 style="margin:0; font-size: 2.5rem;">HAPPY BIRTHDAY<br>AUGGIE BABY! 🎂💖✨</h2>
+    </div>
+
+    <div id="kiss-btn" onclick="kissAttack()">💋</div>
+    <div id="love-toast">System Scan: 100% Bestie Material! 💖</div>
+
+    <div id="custom-alert">
+        <p id="alert-msg" style="font-weight: bold; color: #d81b60;"></p>
+        <button onclick="closeAlert()"
+            style="background: #ff6090; color: white; border: none; padding: 10px 25px; border-radius: 15px; cursor: pointer;">Okay!
+            💖</button>
+    </div>
 
     <img src="download.jfif" alt="bg" id="bg-image">
 
     <div class="card-container">
         <h1>HAPPY 37TH BIRTHDAY TO MY AUGGIE JAAN <3</h1>
-        
-        <video autoplay muted loop playsinline class="main-video">
-            <source src="yellowwish.mp4" type="video/mp4">
-        </video>
+                <video autoplay muted loop playsinline class="main-video">
+                    <source src="yellowwish.mp4" type="video/mp4">
+                </video>
 
-        <p>You are a blessing for me and the best of all besties! I love you forever my Asmat Jaan! I love you and your yummy baby lips and face. You are the cutest headache I've ever had. Happy 4th year of our lovely relationship that i hope stays as pretty as it is forever. Lots of virtual kisses and hugs to you babe.💋🥰</p>
+                <div class="timer-box">
+                    <h3 style="margin: 0 0 10px 0; color: #ff4081; font-size: 0.9rem;">⏳ Time we've been Besties ⏳</h3>
+                    <div class="timer-digits" id="timer">
+                        <div><span id="years">0</span>
+                            <div class="timer-label">Yrs</div>
+                        </div>
+                        <div><span id="months">0</span>
+                            <div class="timer-label">Mts</div>
+                        </div>
+                        <div><span id="days">0</span>
+                            <div class="timer-label">Dys</div>
+                        </div>
+                        <div><span id="hours">0</span>
+                            <div class="timer-label">Hrs</div>
+                        </div>
+                        <div><span id="minutes">0</span>
+                            <div class="timer-label">Min</div>
+                        </div>
+                        <div><span id="seconds">0</span>
+                            <div class="timer-label">Sec</div>
+                        </div>
+                    </div>
+                </div>
 
-        <table class="memory-table">
-            <thead>
-                <tr><th colspan="2">👑 Reasons Why You're The Best 👑</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>🌟</td><td>Your incredible patience and how you always listen to my dumb stories.😉</td></tr>
-                <tr><td>🎂</td><td>The way you make every year feel special, even when we are far apart.😻</td></tr>
-                <tr><td>✨</td><td>Your sense of humor that can fix even my worst days.😊</td></tr>
-                <tr><td>😍</td><td>Your cutie pie snakey🐍 and red red yummy lipss.💕</td></tr>
-                <tr><td>👀</td><td>The way you care for my small babies🍒🍑🥑</td></tr>
-                <tr><td>🌹</td><td>Your always being able to convince me and love me when I'm angry and naraz.😤</td></tr>
-                <tr><td>💎</td><td>Everything about you baby. You're my little gem and i never want to lose you.😚</td></tr>
-                <tr><td>💖</td><td>Being my "Besties Forever Contract" partner since day one.😏</td></tr>
-            </tbody>
-        </table>
+                <p>You are a blessing for me and the best of all besties! I love you forever my Asmat Jaan! I love you and your yummy baby lips and face. You are the cutest headache I've ever had. Happy 4th year of our lovely relationship that i hope stays as pretty as it is forever. Lots of virtual kisses and hugs to you babe.💋🥰</p>
 
-        <table class="memory-table" style="margin-top: 30px;">
-            <thead>
-                <tr><th colspan="2">⭐ Bestie BF Rating Report Card ⭐</th></tr>
-            </thead>
-            <tbody>
-                <tr><td style="text-align: left; padding-left: 20px;">Cuteness</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
-                <tr><td style="text-align: left; padding-left: 20px;">Pretty</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
-                <tr><td style="text-align: left; padding-left: 20px;">Red lip kisses</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
-                <tr><td style="text-align: left; padding-left: 20px;">Lollipop taste and size</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td></tr>
-                <tr><td style="text-align: left; padding-left: 20px;">Chura ratio</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍</td></tr>
-                <tr><td style="text-align: left; padding-left: 20px;">Funny</td><td style="text-align: right; padding-right: 20px;">👍👍👍👍👍</td></tr>
-                <tr><td style="text-align: left; padding-left: 20px;">Samajhdaar boii</td><td style="text-align: right; padding-right: 20px;">👍</td></tr>
-                <tr><td style="text-align: left; padding-left: 20px;">Emotional intelligence</td><td style="text-align: right; padding-right: 20px;">👍</td></tr>
-            </tbody>
-        </table>
+                <table class="memory-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">👑 Reasons Why You're The Best 👑</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🌟</td>
+                            <td>Your incredible patience and how you always listen to my dumb stories.😉</td>
+                        </tr>
+                        <tr>
+                            <td>🎂</td>
+                            <td>The way you make every year feel special, even when we are far apart.😻</td>
+                        </tr>
+                        <tr>
+                            <td>✨</td>
+                            <td>Your sense of humor that can fix even my worst days.😊</td>
+                        </tr>
+                        <tr>
+                            <td>😍</td>
+                            <td>Your cutie pie snakey🐍 and red red yummy lipss.💕</td>
+                        </tr>
+                        <tr>
+                            <td>👀</td>
+                            <td>The way you care for my small babies🍒🍑🥑</td>
+                        </tr>
+                        <tr>
+                            <td>🌹</td>
+                            <td>Your always being able to convince me and love me when I'm angry and naraz.😤</td>
+                        </tr>
+                        <tr>
+                            <td>💎</td>
+                            <td>Everything about you baby. You're my little gem and i never want to lose you.😚</td>
+                        </tr>
+                        <tr>
+                            <td>💖</td>
+                            <td>Being my "Besties Forever Contract" partner since day one.😏</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <div class="surprise-note-box" onclick="toggleNote()">
-            <strong id="note-label">✨ Click for a secret note from me! ✨</strong>
-            <div id="secretNote" class="note-content">
-                "To my dearest Auggie baby, it's been the best time of my life since you've been in it!😘 We love, laugh, fight and love again.🎀 All the credit goes to you for making things work out between us no matter how hard life and circumstances get, i just know that they won't ever be as hard as your snakey's🐍 love for me.🙃 Thank you for being the person I can always turn to. You aren't just a best friend, you are my family.💕 I hope this year is as bright and wonderful as you are! Love you forever meri jaan! 🌸"
-            </div>
-        </div>
+                <table class="memory-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">⭐ Bestie BF Rating Report Card ⭐</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Cuteness</td>
+                            <td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Pretty</td>
+                            <td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Red lip kisses</td>
+                            <td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Lollipop taste and size</td>
+                            <td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍👍</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Chura ratio</td>
+                            <td style="text-align: right; padding-right: 20px;">👍👍👍👍👍👍👍</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Funny</td>
+                            <td style="text-align: right; padding-right: 20px;">👍👍👍👍👍</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Samajhdaar boii</td>
+                            <td style="text-align: right; padding-right: 20px;">👍</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 20px;">Emotional intelligence</td>
+                            <td style="text-align: right; padding-right: 20px;">👍</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <video autoplay muted loop playsinline class="main-video">
-            <source src="pinkwish.mp4" type="video/mp4">
-        </video>
+                <div id="quiz-section" class="quiz-box">
+                    <h3>🧩 The Bestie Challenge</h3>
+                    <p><strong>What is my favorite memory of "Us"?</strong></p>
+                    <div class="quiz-options">
+                        <button onclick="checkAnswer(false)">Fights</button>
+                        <button onclick="checkAnswer(false)">Love</button>
+                        <button onclick="checkAnswer(false)">Kisses</button>
+                        <button onclick="checkAnswer(true)">Everything!</button>
+                    </div>
+                </div>
+
+                <div class="scratch-box" onclick="revealScratch()">
+                    <div id="scratch-overlay" class="scratch-cover">🎁 Tap to Scratch your Gift!</div>
+                    <h3 style="margin:0; color:#d81b60;">Redeemable: One Lifetime of My Love & 1000 Kisses 💋</h3>
+                </div>
+
+                <div class="surprise-note-box" onclick="toggleNote()">
+                    <strong id="note-label">✨ Click for a secret note from me! ✨</strong>
+                    <div id="secretNote" class="note-content">
+                        "To my dearest Auggie baby, it's been the best time of my life since you've been in it!😘 We love, laugh, fight and love again.🎀 All the credit goes to you for making things work out between us no matter how hard life and circumstances get, I just know that they won't ever be as
+                        hard as your snakey's🐍 love for me.🙃 Thank you for being the person I can always turn to(and turn hard🤪). You aren't just a best friend, you are my family.💕 I hope this year is as bright and wonderful as you are! Love you forever meri jaan! 🌸"
+                    </div>
+                </div>
+                <video autoplay muted loop playsinline class="main-video">
+                    <source src="pinkwish.mp4" type="video/mp4">
+                </video>
     </div>
 
-    <footer>Made with ❤️ for Auggie</footer>
-    <footer>from szk baby🎁</footer>
+    <div class="footer-combined" onclick="pokeMe()">
+        Made with ❤️ for Auggie from szk baby🎁 Don't click mee!🙃😉
+    </div>
 
     <script>
+        const startDate = new Date("September 1, 2021 00:00:00").getTime();
+
+        function runConfetti(duration) {
+            var end = Date.now() + (duration * 1000);
+            (function frame() {
+                confetti({ particleCount: 5, angle: 315, spread: 60, origin: { x: 0, y: 0 }, zIndex: 100000 });
+                confetti({ particleCount: 5, angle: 225, spread: 60, origin: { x: 1, y: 0 }, zIndex: 100000 });
+                confetti({ particleCount: 8, angle: 90, spread: 100, origin: { x: 0.5, y: 0.5 }, zIndex: 100000 });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+
+        function celebrate() { runConfetti(0.5); }
+        function introCelebration() { runConfetti(2); }
+
+        function createBgHearts() {
+            for (let i = 0; i < 15; i++) {
+                const h = document.createElement('div');
+                h.className = 'bg-heart'; h.innerHTML = '❤️';
+                h.style.left = Math.random() * 95 + 'vw';
+                h.style.top = Math.random() * 100 + 'vh';
+                h.style.animationDelay = Math.random() * 7 + 's';
+                document.body.appendChild(h);
+            }
+        }
+
+        function startupCelebration() {
+            updateTimer();
+            createBgHearts();
+            introCelebration();
+            setTimeout(() => {
+                const wish = document.getElementById('intro-wish');
+                wish.style.opacity = '0';
+                setTimeout(() => wish.remove(), 1000);
+            }, 3000);
+            setInterval(randomAlerts, 15000);
+        }
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = now - startDate;
+            document.getElementById("years").innerHTML = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            document.getElementById("months").innerHTML = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+            document.getElementById("days").innerHTML = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerHTML = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerHTML = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerHTML = Math.floor((diff % (1000 * 60)) / 1000);
+        }
+        setInterval(updateTimer, 1000);
+
+        function kissAttack() {
+            celebrate();
+
+            // A more intimate, longing message that focuses on him being the 'one'
+            showAlert("Happy Birthday meri jaan. I just want to shower you with all my love today and forever. Every kiss here is a promise to be yours always. You're my everything, my Asmat Jaan 💋❤️. You know that no one else compares to you, and no one loves me like you do. I'm saving every single bit of my love for you my babe. I can't wait to be with you and share our love together, my Auggie baby. 💋✨❤️");
+
+            // Changing the button text to be more personal
+            // Note: This requires a tiny change to the button HTML inside showAlert if you want it permanent,
+            // but we can just update the button text right here!
+            const alertBtn = document.querySelector('#custom-alert button');
+            if (alertBtn) alertBtn.innerText = "Ready for the lovee! 💋";
+
+            const kisses = ['💋', '😘', '❤️', '💕','🎀','🌹','😍','🥰'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const k = document.createElement('div');
+                    k.style.position = 'fixed'; k.style.left = Math.random() * 100 + 'vw';
+                    k.style.top = '100vh'; k.style.fontSize = '35px'; k.style.zIndex = '9999';
+                    k.innerHTML = kisses[Math.floor(Math.random() * kisses.length)];
+                    k.style.transition = '2.5s linear';
+                    document.body.appendChild(k);
+                    setTimeout(() => { k.style.top = '-10vh'; k.style.transform = `rotate(${Math.random() * 360}deg)`; }, 50);
+                    setTimeout(() => k.remove(), 2600);
+                }, i * 100);
+            }
+        }
+
         function toggleNote() {
             const note = document.getElementById('secretNote');
-            const label = document.getElementById('note-label');
+            if (!note.classList.contains('show')) { celebrate(); }
             note.classList.toggle('show');
-            label.innerText = note.classList.contains('show') ? "Close Note 🌸" : "Click for a secret note from me! ✨";
+            document.getElementById('note-label').innerText = note.classList.contains('show') ? "Close Note 🌸" : "✨ Click for a secret note from me! ✨";
         }
+
+        function revealScratch() {
+            const overlay = document.getElementById('scratch-overlay');
+            if (overlay.style.display !== 'none') {
+                celebrate();
+                overlay.style.opacity = '0';
+                setTimeout(() => { overlay.style.display = 'none'; }, 500);
+            }
+        }
+
+        function checkAnswer(isCorrect) {
+            if (isCorrect) { celebrate(); showAlert("Correct! You really are my Jaan! 😍✨"); }
+            else { showAlert("Wrong! Try again, jaan... 😤"); }
+        }
+
+        function pokeMe() { celebrate(); showAlert("Ouch!😆I know you love to touch me babe🤪, but stop poking me and go look at your gifts! 😂"); }
+
+        function showToast(msg) {
+            const t = document.getElementById('love-toast');
+            t.innerText = msg; t.style.bottom = '40px';
+            setTimeout(() => { t.style.bottom = '-100px'; }, 4000);
+        }
+
+        function randomAlerts() {
+            const msgs = [
+                "Psst... Click the 💋 button!",
+                "Did you scratch your gift yet?",
+                "You're doing great, birthday boy! 😍",
+                "System Scan: Infinite Love Detected!",
+                "Reminder: You're the cutest! 😘",
+                "I love your red red yummy lips! 💋",
+                "You're my favorite headache! 😂",
+                "Sending you a giant hug right now! 🫂",
+                "Bestie Forever Contract: ACTIVE ✅"
+            ];
+            showToast(msgs[Math.floor(Math.random() * msgs.length)]);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.8) {
+                const heart = document.createElement('div');
+                heart.className = 'trail-heart'; heart.innerHTML = '💖';
+                heart.style.left = e.clientX + 'px'; heart.style.top = e.clientY + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 800);
+            }
+        });
+
+        function showAlert(msg) {
+            document.getElementById('alert-msg').innerText = msg;
+            document.getElementById('custom-alert').style.display = 'block';
+        }
+        function closeAlert() { 
+    document.getElementById('custom-alert').style.display = 'none'; 
+    // This part resets the button text
+    const alertBtn = document.querySelector('#custom-alert button');
+    if (alertBtn) alertBtn.innerText = "Okay! 💖";
+}
+
     </script>
 </body>
+
 </html>
 
